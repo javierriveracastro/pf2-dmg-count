@@ -1,0 +1,15 @@
+{
+  "name": "pf2-dmg-count",
+  "title": "Pathfinder 2 damage count",
+  "description": "Counts damage made to a token in Pathfinder 2",
+  "compatibleCoreVersion": "0.7.9",
+  "version": "0.1",
+  "author": "Javier Rivera",
+  "systems": ["pf2e"],
+  "esmodules": ["./scripts/main.js"],
+  "styles": [],
+  "url": "",
+  "manifest": "",
+  "download": "",
+  "minimumCoreVersion": "0.7.5"
+}
