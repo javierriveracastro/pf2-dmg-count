@@ -10,6 +10,6 @@
   "styles": [],
   "url": "https://github.com/javierriveracastro/pf2-dmg-count",
   "manifest": "https://raw.githubusercontent.com/javierriveracastro/pf2-dmg-count/main/pf2-dmg-count/module.json",
-  "download": "",
+  "download": "https://github.com/javierriveracastro/pf2-dmg-count/blob/main/pf2-dmg-count.zip?raw=true",
   "minimumCoreVersion": "0.7.5"
 }
