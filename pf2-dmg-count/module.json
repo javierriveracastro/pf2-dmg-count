@@ -8,8 +8,8 @@
   "systems": ["pf2e"],
   "esmodules": ["./scripts/main.js"],
   "styles": [],
-  "url": "",
-  "manifest": "",
+  "url": "https://github.com/javierriveracastro/pf2-dmg-count",
+  "manifest": "https://raw.githubusercontent.com/javierriveracastro/pf2-dmg-count/main/pf2-dmg-count/module.json",
   "download": "",
   "minimumCoreVersion": "0.7.5"
 }
