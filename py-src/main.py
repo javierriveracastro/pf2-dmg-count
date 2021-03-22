@@ -3,12 +3,13 @@ The main module for the damage counter
 """
 
 
-def paint_dmg_token(token, damage):
+def paint_dmg_token(token):
     """
     Paints the damage on a Token
     :param token: Token to paint
-    :param damage: Token damage
     """
+    damage = token.actor.data.data.attributes.hp.max - \
+        token.actor.data.data.attributes.hp.value
     if not token.dmg_txt:
         if damage > 0:
             token.dmg_txt = __new__(  # noqa
@@ -32,12 +33,11 @@ def update_actor(actor, data):
     :param data: Object with just the updated data.
     """
     try:
-        hp = data.data.attributes.hp.value
+        _ = data.data.attributes.hp.value
     except:  # noqa
         return
     for token in actor.getActiveTokens():
-        damage = actor.data.data.attributes.hp.max - hp
-        paint_dmg_token(token, damage)
+        paint_dmg_token(token)
 
 
 def update_token(_, token, data):
@@ -48,12 +48,11 @@ def update_token(_, token, data):
     :param data: Data in the actor that has been updated
     """
     try:
-        hp = data.actorData.data.attributes.hp.value
+        _ = data.actorData.data.attributes.hp.value
     except:  # noqa
         return
     real_token = canvas.tokens.js_get(token._id)  # noqa
-    damage = real_token.actor.data.data.attributes.hp.max - hp
-    paint_dmg_token(real_token, damage)
+    paint_dmg_token(real_token)
 
 
 def create_token(_, token):
@@ -64,15 +63,13 @@ def create_token(_, token):
     """
     if token.actorLink:
         real_token = canvas.tokens.js_get(token._id)  # noqa
-        damage = real_token.actor.data.data.attributes.hp.max - \
-            real_token.actor.data.data.attributes.hp.value
         __pragma__('js', '{}', '''
             setTimeout(() => {
-                paint_dmg_token(real_token, damage);
+                paint_dmg_token(real_token);
             }, 2000)    
         ''')
         __pragma__('skip')
-        paint_dmg_token(token, damage)
+        paint_dmg_token(token)
         __pragma__('noskip')
 
 
@@ -82,9 +79,7 @@ def canvas_ready(canvas):
     :param canvas: Canvas foundry object
     """
     for token in canvas.tokens.placeables:
-        damage = token.actor.data.data.attributes.hp.max - \
-            token.actor.data.data.attributes.hp.value
-        paint_dmg_token(token, damage)
+        paint_dmg_token(token)
 
 
 def on_ready():
