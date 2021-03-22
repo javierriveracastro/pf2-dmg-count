@@ -13,18 +13,23 @@ def paint_dmg_token(token):
     if token.actor.hasPlayerOwner:
         damage_txt = str(damage) + " / " + str(
             token.actor.data.data.attributes.hp.max)
+        color = '#FFFFFF' if damage < \
+            (token.actor.data.data.attributes.hp.max / 2) else '#EE0000'
     else:
         damage_txt = str(damage)
+        color = '#FFFFFF'
+    print(color)
     if not token.dmg_txt:
         if damage > 0:
             token.dmg_txt = __new__(  # noqa
-                PIXI.Text(damage_txt, {'fontSize': 22, 'fill': '#FFFFFF'}))  # noqa
+                PIXI.Text(damage_txt, {'fontSize': 22, 'fill': color}))  # noqa
             token.dmg_txt.y = token.height * .75
             token.dmg_txt.x = 5
             token.addChild(token.dmg_txt)
     else:
         if damage > 0:
             token.dmg_txt.text = damage_txt
+            token.dmg_txt.style.fill = color
         else:
             token.removeChild(token.dmg_txt)
             del token.dmg_txt
