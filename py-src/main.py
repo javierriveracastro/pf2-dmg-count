@@ -8,17 +8,18 @@ def paint_dmg_token(token):
     Paints the damage on a Token
     :param token: Token to paint
     """
-    damage = token.actor.data.data.attributes.hp.max - \
-        token.actor.data.data.attributes.hp.value
+    max_hp = token.actor.data.data.attributes.hp.max
+    damage = max_hp - token.actor.data.data.attributes.hp.value
     if token.actor.hasPlayerOwner:
-        damage_txt = str(damage) + " / " + str(
-            token.actor.data.data.attributes.hp.max)
-        color = '#FFFFFF' if damage < \
-            (token.actor.data.data.attributes.hp.max / 2) else '#EE0000'
+        damage_txt = str(damage) + " / " + str(max_hp)
+        color = '#FFFFFF' if damage < (max_hp / 2) else '#EE0000'
     else:
-        damage_txt = str(damage)
-        color = '#FFFFFF'
-    print(color)
+        if damage < max_hp:
+            damage_txt = str(damage)
+            color = '#FFFFFF'
+        else:
+            damage_txt = "X"
+            color = '#EE0000'
     if not token.dmg_txt:
         if damage > 0:
             token.dmg_txt = __new__(  # noqa
