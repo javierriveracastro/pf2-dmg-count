@@ -4,6 +4,8 @@ A simple modules that shows the damage taken by a token with an overlay
 
 It's mostly just a wild test to see if a module could be writen in Python
 
+![Screenshot](doc_resources/ScreenShot.png)
+
 ## Build Instructions
 
 You will need to have Trasncrypt(https://transcrypt.org/) installed.
