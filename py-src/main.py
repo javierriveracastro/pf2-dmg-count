@@ -76,11 +76,7 @@ def create_token(_, token):
         __pragma__('js', '{}', '''
             setTimeout(() => {
                 paint_dmg_token(real_token);
-            }, 2000)    
-        ''')
-        __pragma__('skip')
-        paint_dmg_token(token)
-        __pragma__('noskip')
+            }, 2000)''')  # noqa
 
 
 def canvas_ready(canvas):
