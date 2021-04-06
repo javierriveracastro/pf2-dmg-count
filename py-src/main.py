@@ -111,7 +111,6 @@ def on_init():
     Foundry Initilization ended
     """
     register(SETTINGS, MODULE_NAME)
-    print("Here")
 
 
 Hooks.once("ready", on_ready)  # noqa
