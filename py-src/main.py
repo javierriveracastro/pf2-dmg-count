@@ -2,6 +2,13 @@
 The main module for the damage counter
 """
 
+from register_settings import register, get_setting
+
+MODULE_NAME = 'pf2-dmg-count'
+
+SETTINGS = [
+    {'id': 'font_size', 'default': "22"}, ]
+
 
 def paint_dmg_token(token):
     """
@@ -22,8 +29,11 @@ def paint_dmg_token(token):
             color = '#EE0000'
     if not token.dmg_txt:
         if damage > 0:
+            font_size = int(get_setting(MODULE_NAME, 'font_size'))
             token.dmg_txt = __new__(  # noqa
-                PIXI.Text(damage_txt, {'fontSize': 22, 'fill': color}))  # noqa
+                PIXI.Text(damage_txt,  # noqa
+                          {'fontSize': font_size,
+                           'fill': color}))
             token.dmg_txt.y = token.height * .75
             token.dmg_txt.x = 5
             token.addChild(token.dmg_txt)
@@ -94,9 +104,18 @@ def on_ready():
     """
     print("Pathfinder 2 damage count is active")
     game.pf2_dmg_count = {'paint_dmg_token': paint_dmg_token}  # noqa
+    
+
+def on_init():
+    """
+    Foundry Initilization ended
+    """
+    register(SETTINGS, MODULE_NAME)
+    print("Here")
 
 
-Hooks.on("ready", on_ready)  # noqa
+Hooks.once("ready", on_ready)  # noqa
+Hooks.on("init", on_init)  # noqa
 Hooks.on("updateActor", update_actor)  # noqa
 Hooks.on("updateToken", update_token)  # noqa
 Hooks.on("createToken", create_token)  # noqa
