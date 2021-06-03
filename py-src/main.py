@@ -104,7 +104,7 @@ def on_ready():
     """
     print("Pathfinder 2 damage count is active")
     game.pf2_dmg_count = {'paint_dmg_token': paint_dmg_token}  # noqa
-    
+
 
 def on_init():
     """
