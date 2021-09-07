@@ -7,7 +7,7 @@
   "version": "1.0",
   "author": "Javier Rivera",
   "systems": ["pf2e"],
-  "scripts": ["./scripts/brython.min.js", "./scripts/pf2-dmg.js"],
+  "scripts": ["./scripts/brython.js", "./scripts/brython_modules.js","./scripts/pf2-dmg.js"],
   "styles": [],
   "url": "https://github.com/javierriveracastro/pf2-dmg-count",
   "manifest": "https://raw.githubusercontent.com/javierriveracastro/pf2-dmg-count/main/pf2-dmg-count/module.json",

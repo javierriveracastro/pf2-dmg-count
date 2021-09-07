@@ -3,7 +3,8 @@ Main file for pf2-dmg-count
 """
 
 # noinspection PyUnresolvedReferences
-from browser import window
+from browser import window, timer
+# noinspection PyUnresolvedReferences
 from register_settings import register, get_setting
 
 MODULE_NAME = 'pf2-dmg-count'
@@ -75,22 +76,17 @@ def update_token(_, token, data, *__):
         _ = data.actorData.data.attributes.hp.value
     except:  # noqa
         return
-    real_token = canvas.tokens.js_get(token._id)  # noqa
+    real_token = window.canvas.tokens.get(token._id)  # noqa
     paint_dmg_token(real_token)
 
 
-def create_token(_, token):
+def create_token(token, *_):
     """
     Called when a new token is created
-    :param _: Scene foundry object, ignored
     :param token: Token-like dictionary
     """
-    if token.actorLink:
-        real_token = canvas.tokens.js_get(token._id)  # noqa
-        __pragma__('js', '{}', '''
-            setTimeout(() => {
-                paint_dmg_token(real_token);
-            }, 2000)''')  # noqa
+    real_token = window.canvas.tokens.get(token.id)
+    timer.set_timeout(paint_dmg_token, 2000, real_token)
 
 
 def canvas_ready(canvas):
