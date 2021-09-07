@@ -21,8 +21,8 @@ def paint_dmg_token(token):
         max_hp = token.actor.data.data.attributes.hp.max
         damage = max_hp - token.actor.data.data.attributes.hp.value
     except AttributeError:
-        max_hp = 0
-        damage = 0
+        # Likely an actor that has no hp, like loot
+        return
     if token.actor.hasPlayerOwner:
         damage_txt = str(damage) + " / " + str(max_hp)
         color = '#FFFFFF' if damage < (max_hp / 2) else '#EE0000'
