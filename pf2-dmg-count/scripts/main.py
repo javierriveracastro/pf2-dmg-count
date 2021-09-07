@@ -17,8 +17,12 @@ def paint_dmg_token(token):
     Paints the damage on a Token
     :param token: Token to paint
     """
-    max_hp = token.actor.data.data.attributes.hp.max
-    damage = max_hp - token.actor.data.data.attributes.hp.value
+    try:
+        max_hp = token.actor.data.data.attributes.hp.max
+        damage = max_hp - token.actor.data.data.attributes.hp.value
+    except AttributeError:
+        max_hp = 0
+        damage = 0
     if token.actor.hasPlayerOwner:
         damage_txt = str(damage) + " / " + str(max_hp)
         color = '#FFFFFF' if damage < (max_hp / 2) else '#EE0000'
@@ -104,5 +108,4 @@ window.Hooks.on("updateActor", update_actor)  # noqa
 window.Hooks.on("updateToken", update_token)  # noqa
 window.Hooks.on("createToken", create_token)  # noqa
 window.Hooks.on("canvasReady", canvas_ready)  # noqa
-
 
