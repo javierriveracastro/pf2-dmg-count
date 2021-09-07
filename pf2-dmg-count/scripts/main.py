@@ -1,7 +1,9 @@
 """
-The main module for the damage counter
+Main file for pf2-dmg-count
 """
 
+# noinspection PyUnresolvedReferences
+from browser import window
 from register_settings import register, get_setting
 
 MODULE_NAME = 'pf2-dmg-count'
@@ -27,13 +29,11 @@ def paint_dmg_token(token):
         else:
             damage_txt = "X"
             color = '#EE0000'
-    if not token.dmg_txt:
+    if not hasattr(token, 'dmg_txt') or not token.dmg_txt:
         if damage > 0:
             font_size = int(get_setting(MODULE_NAME, 'font_size'))
-            token.dmg_txt = __new__(  # noqa
-                PIXI.Text(damage_txt,  # noqa
-                          {'fontSize': font_size,
-                           'fill': color}))
+            token.dmg_txt = window.PIXI.Text.new(
+                damage_txt, {'fontSize': font_size, 'fill': color})
             token.dmg_txt.y = token.height * .75
             token.dmg_txt.x = 5
             token.addChild(token.dmg_txt)
@@ -46,7 +46,7 @@ def paint_dmg_token(token):
             del token.dmg_txt
 
 
-def update_actor(actor, data):
+def update_actor(actor, data, *_):
     """
     Called when an actor is updated
     :param actor: Actor updated
@@ -60,7 +60,7 @@ def update_actor(actor, data):
         paint_dmg_token(token)
 
 
-def update_token(_, token, data):
+def update_token(_, token, data, *__):
     """
     Called when a token is updated
     :param _:
@@ -98,24 +98,11 @@ def canvas_ready(canvas):
         paint_dmg_token(token)
 
 
-def on_ready():
-    """
-    Foundry is ready
-    """
-    print("Pathfinder 2 damage count is active")
-    game.pf2_dmg_count = {'paint_dmg_token': paint_dmg_token}  # noqa
+print("PF2-DMG-Count python init running")
+register(SETTINGS, MODULE_NAME)
+window.Hooks.on("updateActor", update_actor)  # noqa
+window.Hooks.on("updateToken", update_token)  # noqa
+window.Hooks.on("createToken", create_token)  # noqa
+window.Hooks.on("canvasReady", canvas_ready)  # noqa
 
 
-def on_init():
-    """
-    Foundry Initilization ended
-    """
-    register(SETTINGS, MODULE_NAME)
-
-
-Hooks.once("ready", on_ready)  # noqa
-Hooks.on("init", on_init)  # noqa
-Hooks.on("updateActor", update_actor)  # noqa
-Hooks.on("updateToken", update_token)  # noqa
-Hooks.on("createToken", create_token)  # noqa
-Hooks.on("canvasReady", canvas_ready)  # noqa
