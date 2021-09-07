@@ -65,10 +65,9 @@ def update_actor(actor, data, *_):
         paint_dmg_token(token)
 
 
-def update_token(_, token, data, *__):
+def update_token(token, data, *__):
     """
     Called when a token is updated
-    :param _:
     :param token: A js object that is like but not a token, because js
     :param data: Data in the actor that has been updated
     """
@@ -85,7 +84,7 @@ def create_token(token, *_):
     Called when a new token is created
     :param token: Token-like dictionary
     """
-    real_token = window.canvas.tokens.get(token.id)
+    real_token = window.canvas.tokens.get(token._id)  # noqa
     timer.set_timeout(paint_dmg_token, 2000, real_token)
 
 
