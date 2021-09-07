@@ -4,7 +4,7 @@
   "description": "Counts damage made to a token in Pathfinder 2",
   "minimumCoreVersion": "0.7.5",
   "compatibleCoreVersion": "0.8.6",
-  "version": "1.0",
+  "version": "1.1",
   "author": "Javier Rivera",
   "systems": ["pf2e"],
   "scripts": ["./scripts/brython.js", "./scripts/brython_modules.js","./scripts/pf2-dmg.js"],
